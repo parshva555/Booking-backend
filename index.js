@@ -24,6 +24,6 @@ mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB');
 });
 
-app.listen(7000,'192.168.56.1', () => {
+app.listen(7000, () => {
   console.log("Server running on localhost:7000");
 });
