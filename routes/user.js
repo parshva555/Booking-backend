@@ -7,6 +7,22 @@ const dotenv = require('dotenv');
 dotenv.config();
 const router = express.Router();
 
+router.get("/user-details", verifyToken, async (req, res) => {
+	const userId = req.userId;
+
+	try {
+		const user = await User.findById(userId).select("-password");
+		if (!user) {
+			return res.status(400).json({ message: "User not found" });
+		}
+
+		res.json({ email: user.email, firstName: user.firstName, lastName: user.lastName });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: "Something went wrong" });
+	}
+});
+
 router.post(
   "/register",
   [
