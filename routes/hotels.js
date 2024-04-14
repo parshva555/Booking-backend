@@ -46,7 +46,7 @@ router.get("/city", async (req, res) => {
       res.json(hotels);
     } catch (error) {
       console.log("error", error);
-      res.status(500).json({ message: "Error fetching hotels" });
+      res.status(500).json({ message: `Error fetching hotels: ${error}` });
     }
 });
 
