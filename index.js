@@ -25,6 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/booking", bookingRoutes);
+
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB');
 });
