@@ -15,13 +15,11 @@ router.get("/get-bookings", verifyToken, async (req, res) => {
         (booking) => booking.userId === req.userId
       ).map((booking) => ({
         ...booking.toObject(),
-        checkIn: booking.checkIn,
-        checkOut: booking.checkOut,
       }));
 
       const hotelWithUserBookings = {
         ...hotel.toObject(),
-        bookings: userBookings.map((booking) => booking.toObject()),
+        bookings: userBookings,
       };
 
       return hotelWithUserBookings;
