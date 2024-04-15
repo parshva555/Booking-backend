@@ -66,5 +66,34 @@ router.post(
     }
   }
 );
+router.put("/update-details", verifyToken, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // Update user details if provided in the request body
+    if (req.body.firstName) {
+      user.firstName = req.body.firstName;
+    }
+    if (req.body.lastName) {
+      user.lastName = req.body.lastName;
+    }
+    if (req.body.email) {
+      user.email = req.body.email;
+    }
+
+    await user.save();
+
+    res.json({ success: true, message: "User details updated successfully" });
+  } catch (error) {
+    console.error("Error updating user details:", error);
+    res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+});
 
 module.exports = router;
