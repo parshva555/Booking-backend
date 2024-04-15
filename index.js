@@ -7,6 +7,7 @@ const userRoutes = require("./routes/user")
 const authRoutes = require("./routes/auth");
 const hotelRoutes = require("./routes/hotels");
 const bookingRoutes = require("./routes/booking");
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING);

@@ -3,6 +3,8 @@ const { param, validationResult } = require("express-validator");
 const Hotel = require("../models/hotel");
 const verifyToken = require("../middleware/auth");
 
+const router = express.Router();
+
 router.post(
   "/:hotelId/bookings",
   verifyToken,
@@ -32,3 +34,5 @@ router.post(
     }
   }
 );
+
+module.exports = router;
