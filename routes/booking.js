@@ -58,5 +58,28 @@ router.post(
     }
   }
 );
+// backend/routes/booking.js
+
+router.delete("/:bookingId", verifyToken, async (req, res) => {
+  try {
+    const hotel = await Hotel.findOneAndUpdate(
+      { "bookings._id": req.params.bookingId },
+      {
+        $pull: { bookings: { _id: req.params.bookingId, userId: req.userId } },
+      },
+      { new: true }
+    );
+
+    if (!hotel) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    res.status(200).json({ message: "Booking deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 
 module.exports = router;
