@@ -13,9 +13,7 @@ router.get("/get-bookings", verifyToken, async (req, res) => {
     const results = hotels.map((hotel) => {
       const userBookings = hotel.bookings.filter(
         (booking) => booking.userId === req.userId
-      ).map((booking) => ({
-        ...booking.toObject(),
-      }));
+      );
 
       const hotelWithUserBookings = {
         ...hotel.toObject(),
