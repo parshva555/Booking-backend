@@ -15,6 +15,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/city", async (req, res) => {
+    const { city } = req.query;
+    console.log("Received city:", city); // Log the received city parameter
+    try {
+      // Capitalize the first letter of the city
+      const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+      const hotels = await Hotel.find({ city: capitalizedCity }).sort("-lastUpdated");
+      res.json(hotels);
+    } catch (error) {
+      console.log("error", error);
+      res.status(500).json({ message: `Error fetching hotels: ${error}` });
+    }
+});
+
+router.get("/get-cities", async (req, res) => {
+  try {
+    const cities = await Hotel.distinct("city");
+    res.json({ cities });
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: `Error fetching cities: ${error}` });
+  }
+});
+
 router.get(
   "/:id",
   [param("id").notEmpty().withMessage("Hotel ID is required")],
@@ -35,20 +59,6 @@ router.get(
     }
   }
 );
-router.get("/city", async (req, res) => {
-    const { city } = req.query;
-    console.log("Received city:", city); // Log the received city parameter
-    try {
-      // Capitalize the first letter of the city
-      const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-      console.log("Capitalized city:", capitalizedCity); // Log the capitalized city for verification
-      const hotels = await Hotel.find({ city: capitalizedCity }).sort("-lastUpdated");
-      res.json(hotels);
-    } catch (error) {
-      console.log("error", error);
-      res.status(500).json({ message: "Error fetching hotels" });
-    }
-});
 
 
 module.exports = router;
