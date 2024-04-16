@@ -95,5 +95,9 @@ router.put("/update-details", verifyToken, async (req, res) => {
     res.status(500).json({ success: false, message: "Something went wrong" });
   }
 });
+router.post('/logout', verifyToken, (req, res) => {
+  res.clearCookie('auth_token');
+  return res.status(200).json({ success: true, message: 'Logged out successfully' });
+});
 
 module.exports = router;

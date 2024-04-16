@@ -1,6 +1,7 @@
 const express = require("express");
 const Hotel = require("../models/hotel");
 const verifyToken = require("../middleware/auth");
+
 const router = express.Router();
 
 router.get("/get-bookings", verifyToken, async (req, res) => {
@@ -58,7 +59,6 @@ router.post(
     }
   }
 );
-// backend/routes/booking.js
 
 router.delete("/:bookingId", verifyToken, async (req, res) => {
   try {
@@ -80,6 +80,5 @@ router.delete("/:bookingId", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
-
 
 module.exports = router;
