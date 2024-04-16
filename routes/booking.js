@@ -10,18 +10,9 @@ router.get("/get-bookings", verifyToken, async (req, res) => {
     });
 
     const results = hotels.map((hotel) => {
-      console.log(hotel.bookings);
-      console.log("--------------")
-      console.log(typeof hotel.bookings[0].userId)
-      console.log("--------------")
-      console.log(typeof req.userId);
-      console.log("--------------")
       const userBookings = hotel.bookings.filter(
-        (booking) => booking.userId.toString() === req.userId
+        (booking) => booking.userId === req.userId
       );
-
-      console.log(userBookings);
-      console.log("--------------")
 
       const hotelWithUserBookings = {
         ...hotel.toObject({ getters: true }),
