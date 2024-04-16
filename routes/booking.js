@@ -16,7 +16,7 @@ router.get("/get-bookings", verifyToken, async (req, res) => {
       );
 
       const hotelWithUserBookings = {
-        ...hotel.toObject(),
+        ...hotel.toObject({ getters: true }),
         bookings: userBookings,
       };
 
